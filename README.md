@@ -1,4 +1,3 @@
-````
 # 🤖 AI Chatbot Usage Analytics — SQL
 
 > A relational database and SQL analytics project for an AI chatbot SaaS platform.
@@ -21,7 +20,7 @@ The database is designed to track:
 - Conversations
 - Messages
 
-SQL queries are then used to analyze user activity, subscription distribution, conversation volume, message activity, and AI model usage.
+SQL queries are used to analyze user activity, subscription distribution, conversation volume, message activity, and AI model usage.
 
 The project demonstrates how a relational database can support analytics for an AI-powered SaaS application.
 
@@ -33,7 +32,7 @@ The main objectives of this project are to:
 
 - Design a relational database for an AI chatbot platform
 - Create tables with appropriate relationships
-- Store users, plans, models, conversations, and messages
+- Store users, plans, AI models, conversations, and messages
 - Perform SQL-based data analysis
 - Use JOINs to combine information across tables
 - Use aggregate functions for analytics
@@ -51,41 +50,45 @@ The database contains five main entities:
                     │    Plans     │
                     └──────┬───────┘
                            │
-                           │ plan_id
+                        plan_id
+                           │
                            ▼
                     ┌──────────────┐
                     │    Users     │
                     └──────┬───────┘
                            │
-                           │ user_id
+                        user_id
+                           │
                            ▼
                   ┌──────────────────┐
                   │  Conversations   │
                   └───────┬──────┬───┘
                           │      │
-                 user_id  │      │ model_id
+                    user_id      │ model_id
+                          │      │
                           │      ▼
                           │  ┌──────────────┐
                           │  │    Models    │
                           │  └──────────────┘
                           │
-                          │ conversation_id
+                   conversation_id
+                          │
                           ▼
                   ┌──────────────────┐
                   │     Messages     │
                   └──────────────────┘
-````
+```
 
 ---
 
- ## 🗂️ Database Tables
+## 🗂️ Database Tables
 
- ### 1\. `users`
+### 1. `users`
 
- Stores information about platform users.
+Stores information about platform users.
 
- | Column | Description |
-| --- | --- |
+| Column | Description |
+|---|---|
 | `user_id` | Unique user identifier |
 | `name` | User name |
 | `email` | User email |
@@ -93,47 +96,47 @@ The database contains five main entities:
 
 ---
 
- ### 2\. `plans`
+### 2. `plans`
 
- Stores available subscription plans.
+Stores available subscription plans.
 
- | Column | Description |
-| --- | --- |
+| Column | Description |
+|---|---|
 | `plan_id` | Unique plan identifier |
 | `plan_name` | Name of the subscription plan |
 | `price` | Plan price |
 
 Current sample plans:
 
- - Free
+- Free
 - Premium
 
 ---
 
- ### 3\. `models`
+### 3. `models`
 
- Stores AI models available on the platform.
+Stores AI models available on the platform.
 
- | Column | Description |
-| --- | --- |
+| Column | Description |
+|---|---|
 | `model_id` | Unique model identifier |
 | `model_name` | AI model name |
 | `model_type` | Type/category of model |
 
 Sample models include:
 
- - GPT-4o
+- GPT-4o
 - Claude 3.5 Sonnet
 - Gemini 1.5 Pro
 
 ---
 
- ### 4\. `conversations`
+### 4. `conversations`
 
- Stores chatbot conversations.
+Stores chatbot conversations.
 
- | Column | Description |
-| --- | --- |
+| Column | Description |
+|---|---|
 | `conversation_id` | Unique conversation identifier |
 | `user_id` | User who created the conversation |
 | `model_id` | AI model used |
@@ -141,12 +144,12 @@ Sample models include:
 
 ---
 
- ### 5\. `messages`
+### 5. `messages`
 
- Stores individual messages within conversations.
+Stores individual messages within conversations.
 
- | Column | Description |
-| --- | --- |
+| Column | Description |
+|---|---|
 | `message_id` | Unique message identifier |
 | `conversation_id` | Related conversation |
 | `sender` | Message sender |
@@ -154,11 +157,11 @@ Sample models include:
 
 ---
 
- ## 🔗 Table Relationships
+## 🔗 Table Relationships
 
- The database uses relational keys to connect the entities.
+The database uses primary keys and foreign keys to connect the entities.
 
-```
+```text
 plans.plan_id
       ↓
 users.plan_id
@@ -176,16 +179,16 @@ conversations.conversation_id
 messages.conversation_id
 ```
 
- This structure allows information from multiple tables to be combined during analysis.
+This relational structure allows information from multiple tables to be combined during analysis.
 
 ---
 
- ## 📊 Sample Dataset
+## 📊 Sample Dataset
 
- The project uses a small controlled dataset for demonstrating SQL analytics.
+The project uses a controlled sample dataset for demonstrating SQL analytics.
 
- | Table | Records |
-| --- | --- |
+| Table | Records |
+|---|---:|
 | Plans | 2 |
 | Users | 10 |
 | Models | 3 |
@@ -194,11 +197,11 @@ messages.conversation_id
 
 ---
 
- ## 🔍 Business Questions
+## 🔍 Business Questions
 
- The project answers practical questions such as:
+The project analyzes practical questions such as:
 
- 1. How many total users are registered?
+1. How many total users are registered?
 2. How many users are on Free vs Premium plans?
 3. How many users belong to each subscription plan?
 4. Which AI model has the highest number of conversations?
@@ -209,17 +212,19 @@ messages.conversation_id
 9. What percentage of users belong to each subscription plan?
 10. What is the average number of messages per conversation?
 
- Detailed questions, queries, and explanations are available in:
+### Detailed Analysis
 
- `queries/business_questions.md`
+For the complete list of questions, SQL queries, answers, dataset summary, and explanations:
+
+👉 [View Business Questions & Analysis](queries/business_questions.md)
 
 ---
 
- ## 🧮 SQL Concepts Demonstrated
+## 🧮 SQL Concepts Demonstrated
 
- This project demonstrates:
+This project demonstrates the following SQL concepts:
 
- - `SELECT`
+- `SELECT`
 - `WHERE`
 - `COUNT()`
 - `AVG()`
@@ -231,71 +236,95 @@ messages.conversation_id
 - `LEFT JOIN`
 - `COUNT(DISTINCT ...)`
 - Subqueries
+- Primary Keys
+- Foreign Keys
 
 ---
 
- ## 📈 Key Analysis Results
+## 📈 Key Analysis Results
 
- Based on the sample dataset:
+The analysis was performed using the project's sample dataset.
 
- ### User Distribution
+### User Distribution
 
-```
+```text
 Free Users     → 5
 Premium Users  → 5
 Total Users    → 10
 ```
 
- ### AI Model Usage
+### AI Model Usage
 
- The sample dataset contains conversations across:
+The sample dataset contains conversations across:
 
-```
+```text
 GPT-4o
 Claude 3.5 Sonnet
 Gemini 1.5 Pro
 ```
 
- Model usage is analyzed using conversation and message counts.
+Model usage is analyzed using conversation and message counts.
 
- ### Message Activity
+### Message Activity
 
- The dataset contains:
+The dataset contains:
 
-```
+```text
 30 total messages
 10 conversations
 ```
 
- The average number of messages per conversation is:
+The average number of messages per conversation is:
 
-```
+```text
 3.00
 ```
 
----
+For detailed query results, see:
 
- ## 📸 Project Screenshots
+👉 [Analysis SQL Queries](queries/analysis.sql)
 
- ### Database Structure
-
----
-
- ### Sample Data Summary
+👉 [Business Questions & Analysis](queries/business_questions.md)
 
 ---
 
- ### SQL Analytics
+## 📸 Project Screenshots
+
+### 1. Database Structure
+
+![Database Structure](results/screenshots/SS1_Database_Structure.png)
+
+This screenshot shows the database structure and tables created for the AI chatbot analytics platform.
 
 ---
 
- ### Business Insights
+### 2. Sample Data Summary
+
+![Sample Data Summary](results/screenshots/SS2_Sample_Data_Summary.png)
+
+This screenshot shows the sample data used during the SQL analysis.
 
 ---
 
- ## 📁 Project Structure
+### 3. SQL Analytics
 
-```
+![SQL Analytics](results/screenshots/SS3_SQL_Analytics.png)
+
+This screenshot demonstrates the SQL queries used to analyze users, conversations, messages, subscription plans, and AI model usage.
+
+---
+
+### 4. Business Insights
+
+![Business Insights](results/screenshots/SS4_Project_Insights.png)
+
+This screenshot shows the final analytical results generated from the chatbot database.
+
+---
+
+## 📁 Project Structure
+
+```text
 AI-Chatbot-SQL-Analytics/
 │
 ├── README.md
@@ -319,31 +348,37 @@ AI-Chatbot-SQL-Analytics/
 
 ---
 
- ## ▶️ How to Run the Project
+## ▶️ How to Run the Project
 
- ### Step 1 — Create the database
+### Step 1 — Create the Database
 
- Open MySQL Workbench or another MySQL client.
+Open MySQL Workbench or another MySQL client.
 
- Run:
+Run:
 
-```
+```sql
 CREATE DATABASE AI_Chatbot_Analytics;
+```
+
+Then select the database:
+
+```sql
+USE AI_Chatbot_Analytics;
 ```
 
 ---
 
- ### Step 2 — Create the tables
+### Step 2 — Create the Tables
 
- Run the SQL script:
+Open and execute:
 
-```
+```text
 database/create_tables.sql
 ```
 
- This creates:
+This creates the following tables:
 
-```
+```text
 plans
 users
 models
@@ -353,42 +388,46 @@ messages
 
 ---
 
- ### Step 3 — Insert sample data
+### Step 3 — Insert Sample Data
 
- Run:
+Open and execute:
 
-```
+```text
 database/insert_data.sql
 ```
 
- This populates the database with the project's sample dataset.
+This populates the database with the project's sample dataset.
 
 ---
 
- ### Step 4 — Run the analysis
+### Step 4 — Run the Analysis
 
- Open:
+Open:
 
-```
+```text
 queries/analysis.sql
 ```
 
- and execute the queries in MySQL Workbench.
+Execute the queries in MySQL Workbench to reproduce the project's analytics.
 
 ---
 
- ### Step 5 — Explore the business questions
+### Step 5 — Explore the Business Questions
 
- For explanations of the analytical questions and results, see:
+Open:
 
- `queries/business_questions.md`
+```text
+queries/business_questions.md
+```
+
+This file contains the analytical questions, SQL queries, answers, and explanations.
 
 ---
 
- ## 🛠️ Tools & Technologies
+## 🛠️ Tools & Technologies
 
- | Tool | Purpose |
-| --- | --- |
+| Tool / Technology | Purpose |
+|---|---|
 | MySQL | Relational database |
 | MySQL Workbench | Database development and SQL execution |
 | SQL | Data querying and analysis |
@@ -396,18 +435,18 @@ queries/analysis.sql
 
 ---
 
- ## 💡 What This Project Demonstrates
+## 💡 Skills Demonstrated
 
- Through this project, I practiced:
+Through this project, I practiced:
 
- - Relational database design
+- Relational database design
 - Table creation
 - Primary and foreign keys
 - Data insertion
 - SQL querying
 - Data aggregation
 - Multi-table JOINs
-- GROUP BY analysis
+- `GROUP BY` analysis
 - User activity analysis
 - Subscription analysis
 - AI model usage analysis
@@ -415,11 +454,11 @@ queries/analysis.sql
 
 ---
 
- ## 🚀 Future Improvements
+## 🚀 Future Improvements
 
- The project can be extended with:
+The project can be extended with:
 
- - More realistic chatbot usage data
+- More realistic chatbot usage data
 - Token consumption tracking
 - API cost analysis
 - Daily/monthly usage trends
@@ -433,18 +472,38 @@ queries/analysis.sql
 
 ---
 
- ## 📌 Project Status
+## 📌 Project Status
 
- **Completed — SQL Database & Analytics Project**
+**Completed — SQL Database & Analytics Project**
 
- The current version focuses on relational database design and SQL-based analytics using a controlled sample dataset.
+The current version focuses on relational database design and SQL-based analytics using a controlled sample dataset.
 
 ---
 
- ## 👨‍💻 Author
+## 👨‍💻 Author
 
- **Amrit Rai**
+**Amrit Rai**
 
- This project was created as part of my learning journey toward AI Engineering, with a focus on SQL, databases, and data analytics.
+This project was created as part of my learning journey toward AI Engineering, with a focus on SQL, databases, and data analytics.
 
-````
+---
+
+## ⭐ Project Highlights
+
+```text
+Database Design
+      ↓
+Sample Data
+      ↓
+SQL Queries
+      ↓
+JOIN & Aggregation
+      ↓
+Business Questions
+      ↓
+Analytics Results
+      ↓
+Documented Portfolio Project
+```
+
+If you found this project useful, feel free to explore the SQL files and analysis documentation.
